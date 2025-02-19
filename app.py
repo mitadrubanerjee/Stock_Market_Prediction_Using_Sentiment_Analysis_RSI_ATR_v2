@@ -17,6 +17,8 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 openai_api_key = st.secrets["api_key_openai"]
 bing_api_key = st.secrets["api_key_bing"]
 
+print(yf.__version__)
+
 #***************************Page Setup and Sidebar Setup*****************#
 
 # Set page configuration
@@ -439,7 +441,25 @@ if choice == "General Sentiment of a Topic":
 
             # Display the overall sentiment
             st.write("### Overall Sentiment of Articles")
-            st.success(f"The overall sentiment of the news articles is: **{overall_sentiment}**")
+            #if overall_sentiment == 'positive':
+                #st.success(f"The overall sentiment of the news articles is: **{overall_sentiment}**")
+            #elif overall_sentiment == 'negative':
+                #st.error(f"The overall sentiment of the news articles is: **{overall_sentiment}**")
+
+            #st.info(f"The overall sentiment of the news articles is: **{overall_sentiment}**")
+
+            if overall_sentiment == 'Positive':
+                st.success(f"The overall sentiment of the news articles is: **{overall_sentiment}**")
+            elif overall_sentiment == 'Trending Positive':
+                st.success(f"The overall sentiment of the news articles is: **{overall_sentiment}**")
+            elif overall_sentiment == 'Neutral':
+                st.info(f"The overall sentiment of the news articles is: **{overall_sentiment}**")
+            elif overall_sentiment == 'Trending Negative':
+                st.error(f"The overall sentiment of the news articles is: **{overall_sentiment}**")
+            elif overall_sentiment == 'Negative':
+                st.error(f"The overall sentiment of the news articles is: **{overall_sentiment}**")
+            else:
+                st.info(f"The overall sentiment of the news articles is: **{overall_sentiment}**")
             
             # Display articles in grid layout
             st.write("### Latest News Articles")
@@ -563,8 +583,15 @@ elif choice == "Company-Specific Sentiment and Prediction":
 
             # Fetch and calculate RSI, ATR for stock data
             try:
+                try:
                 # Fetch stock data
-                stock_data = yf.download(ticker_symbol, period="6mo", interval="1d")
+                    stock_data = yf.download(ticker_symbol, period="6mo", interval="1d")
+                    if stock_data.empty:
+                        st.warning("Yahoo Finance might be down right now")
+                except Exception as e:
+                    st.error("Yahoo Finance might be down right now")
+
+                
 
                 # Reset index to ensure 'Date' is a column and not the index
                 stock_data = stock_data.reset_index()
