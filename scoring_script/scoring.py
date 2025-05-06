@@ -49,8 +49,8 @@ def fetch_financial_data(ticker, commodities):
     # Include user-selected ticker along with commodities
     tickers = [ticker] + commodities
     data = yf.download(tickers, period='1mo', interval='1d')
-    st.dataframe(data)
-    st.write(tickers)
+    #st.dataframe(data)
+    #st.write(tickers)
     
     # Resample to weekly frequency and use 'Close' prices only
     data = data['Close'].resample('W-MON').last()
