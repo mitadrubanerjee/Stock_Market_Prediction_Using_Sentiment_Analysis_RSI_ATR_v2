@@ -48,7 +48,7 @@ def make_prediction(company_name, ticker_symbol):
 def fetch_financial_data(ticker, commodities):
     # Include user-selected ticker along with commodities
     tickers = [ticker] + commodities
-    data = yf.download(tickers, period='1mo', interval='1d')
+    data = yf.download(tickers, period='1mo', interval='1d', threads=False)
     #st.dataframe(data)
     #st.write(tickers)
     
