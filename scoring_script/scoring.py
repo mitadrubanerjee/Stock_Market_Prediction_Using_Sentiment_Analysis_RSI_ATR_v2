@@ -36,7 +36,7 @@ def make_prediction(company_name, ticker_symbol):
     scoring_data = prepare_scoring_data(financial_data, sentiment_score, sentiment_volatility)
 
     # Make predictions using the scoring data
-    st.dataframe(scoring_data)
+    #st.dataframe(scoring_data)
     predictions = make_predictions(scoring_data)
     
     # ***********Change: Return the latest prediction result only (upward or downward)
