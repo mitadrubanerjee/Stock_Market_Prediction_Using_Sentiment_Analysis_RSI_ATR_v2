@@ -585,7 +585,7 @@ elif choice == "Company-Specific Sentiment and Prediction":
             try:
                 try:
                 # Fetch stock data
-                    stock_data = yf.download(ticker_symbol, period="6mo", interval="1d")
+                    stock_data = yf.download(ticker_symbol, period="6mo", interval="1d", threads=False)
                     #st.dataframe(stock_data)
                     if stock_data.empty:
                         st.warning("Yahoo Finance might be down right now")
